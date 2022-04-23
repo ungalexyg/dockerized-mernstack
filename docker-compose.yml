@@ -1,0 +1,46 @@
+# docker-compose define relations and dependices of several docker images
+version: "3.9"
+
+# define the services in this stack, each service point to pre-defined docker container
+services:
+  # frontend service
+  frontend:
+    container_name: app-client
+    restart: always
+    build: ./client
+    ports: 
+      - "3000:3000"
+    links:
+      - backend
+  # backend service, api layer
+  backend:
+    container_name: app-api # container name of the service
+    restart: always # should it restart on compose or should it be detached 
+    build: ./api # build path to the Dockerfile for this service relative to docker-compose file
+    ports: # on which ports it should run? ports should be set in "nested syntax"
+      - "4000:4000"
+    # links connect dependencies of other predeifned services in docker-compose  
+    # links:
+    #  - mongo # the equal name of the service below 
+  
+  
+  #// this sample app uses mlab in /api/mongo-client 
+  #// so the mongo service below not needed 
+  #// it is just a demo setup with direct mongo image usage 
+  # mongo:
+    # container_name: app-mongodb
+    # image: mongo #// this service will be pulled from mongo-image in docker-hub
+  
+    #// this service need volume, it can be defined in common mongo path 
+    #// to enable this feature you should also enabled local paths:
+    #// docker icon at the top bar > prefrences > file sharing > see there enabled local paths for volumes, add if missing
+    # volumes:
+    #  - ./data:/data/db
+  
+    #// define mongo's ports   
+    # posrts:
+    #  - "2017:2017"
+
+
+
+ 

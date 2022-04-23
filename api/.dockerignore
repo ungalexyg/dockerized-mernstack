@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+package-lock.json
+# .env note! 
+# for the demo the .env is copied to the image, 
+# 1) the image should be private in any case
+# 2) it should be removed from the image and edited per env 

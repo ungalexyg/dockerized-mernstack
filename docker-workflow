@@ -1,0 +1,167 @@
+# ------------------------------------------------------------------------------------
+# Workflow
+# ------------------------------------------------------------------------------------
+#
+# @see: https://docs.docker.com/engine/reference/commandline/docker/
+#
+# ------------------
+# $ docker build -t <my-image/my-tag-name> . // -t e,g "tag" ,  don forget the "." 
+# ------------------
+# // after definfing Dockerfile 
+# // to build an docker-image using this file system with this docker file, run
+# $ cd /path/to/here
+# $ docker build -t lndocker/app-1 . 
+#
+# // if you made local changes and want ot rebuild the images, 
+# // just run the command again 
+# $ docker build -t lndocker/app-1 . 
+#
+# ------------------
+# $ docker images
+# ------------------
+# // then you can see it when listing images
+# $ docker images
+#
+# ------------------
+# $ docker rmi <img-id>
+# ------------------
+# // to delete an image
+# $ docker rmi <img-id>
+#
+#
+# ------------------
+# $ docker rename image
+# ------------------
+# // docker image tag <img-id> <new-img-tag>
+# $ docker image tag 6564d742f5fc lndocker/fullapp-1.1
+# 
+# // this will remove only the old alias
+# $ docker rmi <old-image-name> 
+#
+# ------------------
+# $ docker run -p <port>:<port> <my-image/my-tag-name> 
+# ------------------
+# // to run an image 
+# // it will create container that runs the image
+# // means: "run this image via that port in new container" 
+# // will be the same affect as runing the files from local
+# $ docker run -p 4000:4000 lndocker/app-1
+#
+#
+# // you can add the flag -d to run the process in the background (no deps in terminal)
+# // The -d flag is useful when starting containers that you wish to run for long periods of time. Which, if you are using Docker to run services, is generally the case. In attached mode, a container is linked with the terminal session.
+# // Using -d is a simple way to detach the container on start.
+# $ docker run -d -p 4000:4000 lndocker/app-1
+#
+# ------------------
+# $ docker ps
+# ------------------
+# // list running containers (display container that running images) 
+# $ docker ps
+#
+# // list all (-a) recent containers 
+# $ docker ps -a
+#
+# // list recent container's in quiet mode, only ids  
+# $ docker ps -a -q
+#
+# // the -q is good to stop all containers
+# $ docker rm $(docker ps -a -q)
+# ------------------
+# $ docker exec -it <my-container-name|id> bash
+# ------------------
+# // to ssh into a running container
+# $ docker exec -it nice_easley bash
+#
+# ------------------
+# $ docker stop|kill <my-container-name|id>
+# ------------------
+# // to stop container
+# $ docker stop nice_easley
+# // if not stopping (some process stuck, etc), you can force kill
+# $ docker kill <my-container-name|id>
+#
+# // stop all containers
+# $ docker stop $(docker ps -a -q)
+# 
+#
+# ------------------
+# $ docker commit
+# ------------------
+# // commit chnages from images>process to create new image 
+# 
+# // 1) start process
+# $ docker run -p 4000:4000 lndocker/app-1
+#
+# // 2) locate running image container process
+# $ docker ps
+#
+# // 3) stop the running process (don't delete it, only stop)
+# $ docker stop <process-id>
+#
+# // 4) locate it in recent process 
+# $ docker ps -a 
+#
+# // 5) commit the changes from the recent process 
+# $ docker commit <process-id> <my-new-img-tag>
+#
+# ------------------
+# $ docker push
+# ------------------
+# // push your image to the docker hub registery
+#
+# // 1) tag your image with your docekr username & image tag
+# // docker tag <img-id> <docker-username>/<img-name>:<img-tag-ver>
+# $ docker tag 901e42eec6c5 ungalexy1/lndocker-fullapp:1
+#
+# // 2) you may need to logout and login in the terminal 
+#  $ docker logout 
+#  $ docker login  
+# ...
+#
+# // 3) push the image
+# // docker push <docker-username>/<img-name>:<img-tag-ver>
+# $ docker push ungalexy1/lndocker-fullapp:1
+#
+# ------------------
+# $ docker pull
+# ------------------
+# // pull you image from the registery
+# // after pushing simply run the pull
+# // if the image exist in your local, it will update it
+#
+#
+# $ docker pull ungalexy1/lndocker-fullapp:1
+#
+#
+#
+# ------------------
+# $ docker compose
+# ------------------
+# // run all the service in docker compose at the same time
+# $ docker-compose up 
+#
+# // however sometimes you want to initiate them one by one  
+# // this can be done with the detach flag 
+# $ docker-compose up -d <service-name-in-compose>
+# $ docker-compose up -d backend
+#
+# // sop specific compose container
+# $ docker-compose stop api
+#
+# // syop all docker containers
+# $ docker-compose stop
+#
+# // Remove the application containers
+# $ docker-compose rm -f
+#
+# other docker-compose flags
+# –no-deps This will not start any linked depended services.
+# –no-build This will not build the image, even when the image is missing
+# –abort-on-container-exit This will stop all the containers if any container was stopped. You cannot use this option with -d, you have to use this option by itself.
+#
+#
+#
+#
+
+
